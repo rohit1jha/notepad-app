@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Notepad App</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="list-group">
+        <div class="list-group-item note" 
+        [ngStyle]="{'color':note.color}"
+        [ngClass]="{'selectedNote': note.id==noteId,'titleFont':note.favorite}"
+          *ngFor="let note of notesList"  
+          (click)="selectNote(note)"
+        >
+          {{note.title}}
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-xs-6">
+      <div>
+        <form #noteForm= "ngForm"(submit)="saveNote(noteForm.value); noteForm.resetForm()" >
+          <div class="form-group">
+            <label>Title:
+            <input class="note-title form-control" name="title" ngModel required></label>
+            <div class="form-error">Field is required</div>
+          </div>
+          <div class="form-group">
+            <label>Note:
+            <textarea class="note-body form-control" ngModel name="body"></textarea></label>
+          </div>
+          <div class="form-group">
+            <label>favorite:
+            <input type="checkbox" class="note-favorite" ngModel name="favorite"></label>
+          </div>
+          <div class="form-group">
+            <label>Color:
+            <input type="color" class="note-color" ngModel name="color"></label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success note-save">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div> -->
+
+        <div class="col-xs-6">
+          <div *ngIf="showForm">
+            <form [formGroup]="noteForm" (ngSubmit)="saveNote();" >
+              <div class="form-group">
+                <label>Title:
+                <input class="note-title form-control" id="title" formControlName="title" ></label>
+                <div *ngIf="noteForm.controls['title'].invalid && (noteForm.controls['title'].dirty || noteForm.controls['title'].touched)">
+                  <div *ngIf="noteForm.controls['title'].errors.required">
+                  Please enter Title
+                </div>
+              </div>
+              </div>
+              <div class="form-group">
+                <label>Note:
+                <textarea class="note-body form-control"  id="note" formControlName="body"></textarea></label>
+                <div *ngIf="noteForm.controls['body'].invalid && (noteForm.controls['body'].dirty || noteForm.controls['body'].touched)">
+                  <div *ngIf="noteForm.controls['body'].errors.required">
+                  Please enter Notes
+                </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>favorite:
+                <input type="checkbox" class="note-favorite"  id="favorite" formControlName="favorite"></label>
+              </div>
+              <div class="form-group">
+                <label>Color:
+                <input type="color" class="note-color" id="color" formControlName="color"></label>
+              </div>
+              <div class="form-group">
+              
+                <button class="btn btn-success note-save" [disabled]="!noteForm.valid">Save</button>
+              </div>
+            </form>
+          </div>
+    
+          <div>
+        Please select note or <a href="javascript:void(0)"(click)="newNote()" class="note-new">click here to create new one</a>
+      </div>
+
+    </div>
+  </div>
+</div>
